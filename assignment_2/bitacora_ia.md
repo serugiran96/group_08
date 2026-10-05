@@ -35,6 +35,21 @@ Agregamos después del recorrido una celda de texto y una de código que muestra
 
 ## Parte 2 – API de lluvias
 
+### 1. ¿Qué le pedimos a la IA?
+
+Le pedimos ayuda para desarrollar la Parte 2 del trabajo. Inicialmente interpretamos que esta parte correspondía a la limpieza de los datos obtenidos en el scraping.
+
+### 2. ¿Qué nos respondió?
+
+La propuesta fue crear un notebook `limpieza_datos.ipynb` para revisar y limpiar `decretos_lluvias.csv`, incluyendo la conversión de fechas, eliminación de duplicados y tratamiento de valores faltantes. También se generó el archivo `decretos_lluvias_limpio.csv`.
+
+### 3. ¿Qué estaba mal y cómo nos dimos cuenta?
+
+Al volver a revisar la consigna original del Assignment 2, vimos que la Parte 2 no solicitaba limpiar los datos del scraping. En realidad, pedía utilizar la API de Open-Meteo para obtener información de precipitación de las capitales de los 24 departamentos y Callao durante el periodo asignado. Por ello, el desarrollo inicial no cumplía con los requisitos de esta parte.
+
+### 4. ¿Cómo lo corregimos?
+
+Eliminamos `limpieza_datos.ipynb` y `decretos_lluvias_limpio.csv`. Luego desarrollamos `api_lluvias.ipynb`, donde obtuvimos las capitales, verificamos su ubicación mediante la API de geocodificación de Open-Meteo y consultamos la precipitación histórica del periodo asignado. Finalmente guardamos los resultados en `datos/lluvias_por_departamento.csv` y verificamos los resultados antes de integrarlos a `main`.
 
 
 ## Parte 3 – Cruce y análisis
