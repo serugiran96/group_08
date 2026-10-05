@@ -54,4 +54,37 @@ Eliminamos `limpieza_datos.ipynb` y `decretos_lluvias_limpio.csv`. Luego desarro
 
 ## Parte 3 – Cruce y análisis
 
+### 1. ¿Qué le pedimos a la IA?
 
+Se uso la IA para contrastar el manejo de identificadores (ubigeo) y criterios de integración de las bases.
+
+### 2. ¿Qué nos respondió?
+
+Verificar que no haya duplicados
+
+print(
+    tabla_final["ubigeo"].duplicated().sum()
+)
+
+Debe ser:
+0
+Y:
+
+tabla_final[
+    [
+        "ubigeo",
+        "departamento",
+        "declaratorias",
+        "prorrogas",
+        "lluvia_total_mm",
+        "dias_lluvia_fuerte"
+    ]
+]
+
+### 3. ¿Qué estaba mal y cómo nos dimos cuenta?
+
+Al correr la celda, nos dimos cuenta que no se ejecuta ni relacionaba con los documentos de la parte 1 y 2
+
+### 4. ¿Cómo lo corregimos?
+
+Revisamos por nuestra cuenta que el ubigeo guardara relación con la `decretos_lluvias.csv`, y que los totales del cruce fueran los mismos de la Parte 1 y 2. Así confirmamos que el cruce no perdió ni duplicó departamentos.
