@@ -4,8 +4,7 @@ Pregunta de la tarea 3:
 ¿Pueden convertir datos crudos en algo que cualquiera entienda en 2 minutos?
 
 ## Dashboard
-
-Enlace público: _(pendiente, se agregará cuando esté publicado)_
+**Dashboard público:** https://lluvias-peru-grupo08.streamlit.app/
 
 ### ¿Qué pregunta responde?
 
