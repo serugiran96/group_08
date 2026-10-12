@@ -110,6 +110,11 @@ def mostrar_grafico_barras(df_filtrado):
         texto_lluvia = f"{mas_lluvia['departamento']} tuvo más lluvia ({mas_lluvia['lluvia_total_mm']:.1f} mm)"
         titulo = f"{texto_declaratorias}; {texto_lluvia}"
 
+    # La altura crece con el número de departamentos, pero con un mínimo de 350 px.
+    # El título y los ejes ya ocupan unos 180 px: con 1 a 3 departamentos no quedaba
+    # espacio para las barras y Plotly no dibujaba nada.
+    alto = max(350, 120 + 28 * len(datos))
+
     fig = px.bar(
         datos,
         x="declaratorias",
@@ -121,7 +126,7 @@ def mostrar_grafico_barras(df_filtrado):
         hover_data={"lluvia_total_mm": ":.1f", "dias_lluvia_fuerte": True, "prorrogas": True},
         labels=ETIQUETAS,
         title=titulo,
-        height=120 + 28 * len(datos),  # más departamentos, gráfico más alto
+        height=alto,
     )
     fig.update_layout(
         xaxis_title="Número de declaratorias de emergencia por lluvias (ene–may 2025)",
