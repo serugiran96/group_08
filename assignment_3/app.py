@@ -6,10 +6,12 @@ Correr en local (desde la carpeta assignment_3/):
 
 from pathlib import Path
 
-import geopandas as gpd
 import pandas as pd
 import plotly.express as px
 import streamlit as st
+
+# Gráfico, mapa y tabla están en componentes_dashboard.py
+from componentes_dashboard import mostrar_grafico_barras, mostrar_mapa, mostrar_tabla
 
 # ---------------------------------------------------------------- configuracion
 st.set_page_config(page_title="Lluvias y emergencias en el Perú", page_icon="🌧️", layout="wide")
@@ -22,14 +24,14 @@ CARPETA = Path(__file__).parent / "datos"
 # ------------------------------------------------------------------ carga datos
 # @st.cache_data guarda el resultado: sin esto, el archivo se lee otra vez
 # cada vez que alguien mueve un filtro y la app va lentísima.
+# El GeoJSON no se carga aquí: lo carga cargar_geojson() en componentes_dashboard.py.
 @st.cache_data
 def cargar():
     datos = pd.read_csv(CARPETA / "dataset.csv", dtype={"ubigeo": str})
-    formas = gpd.read_file(CARPETA / "departamentos.geojson")
-    return datos, formas
+    return datos
 
 
-datos, formas = cargar()
+datos = cargar()
 
 # ----------------------------------------------------------------------- filtros
 st.sidebar.header("Filtros")
@@ -91,12 +93,17 @@ c4.metric(
 
 st.divider()
 
+# Los tres componentes reciben `filtrado`, así responden a los filtros de la barra lateral.
+
 # ---------------------------------------------------------------------- graficos
-# Punto 4: gráfico(s) Plotly con `filtrado`.
+st.subheader("¿Dónde hubo más declaratorias?")
+mostrar_grafico_barras(filtrado)
 
 # -------------------------------------------------------------------------- mapa
-# Punto 4: mapa con `formas`. El geojson no trae ubigeo, solo el nombre en
-# mayúsculas y sin tilde ("ANCASH"): hay que normalizar `departamento` para unir.
+# El mapa se une con los datos por ubigeo (texto, con el cero inicial: "01").
+st.subheader("¿Dónde llovió más?")
+mostrar_mapa(filtrado)
 
 # ------------------------------------------------------------------------- tabla
-# Punto 5: st.dataframe con `filtrado`.
+st.subheader("Los datos por departamento")
+mostrar_tabla(filtrado)
